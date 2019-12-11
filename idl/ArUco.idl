@@ -1,0 +1,110 @@
+
+#ifndef ArUco_IDL
+#define ArUco_IDL
+
+#include <BasicDataType.idl>
+#include <ExtendedDataTypes.idl>
+//#include "Img.idl"
+#include "CameraCommonInterface.idl"
+
+module RTC{
+  struct TimedPoint2DSeq
+  {
+    Time tm;
+    sequence<Point2D> data;
+  };
+
+  struct ROITimedPoint2DSeq
+  {
+    Time tm;
+    sequence<Point2D> cornerdata;
+    sequence<Point2D> depthdata;
+  };
+};
+
+module arUco {
+  
+  struct pixelPoint2D
+  {
+    long x;
+    long y;
+  };
+
+  struct markerCorner
+  {
+
+    pixelPoint2D point1;
+    pixelPoint2D point2;
+    pixelPoint2D point3;
+    pixelPoint2D point4;
+  };
+
+  struct arUcoPoint2D
+  {
+    RTC::Time tm;
+
+    sequence<long> ids;
+    sequence<markerCorner> markerCorners;
+
+  };
+
+  struct rotationMat
+  {
+    ///R11,R12,R13
+    ///R21,R22,R23
+    ///R31,R32,R33
+
+    double R11;
+    double R12;
+    double R13;
+    double R21;
+    double R22;
+    double R23;
+    double R31;
+    double R32;
+    double R33;
+
+  };
+
+  struct arUcoPose3D
+  {
+    RTC::Time tm;
+
+    sequence<long> ids;
+
+    sequence<rotationMat> rotations;
+    sequence<RTC::Vector3D> translates;
+
+  };
+
+  struct arUcoDataImage
+  {
+    RTC::Time tm;
+    
+    sequence<long> ids;
+    
+    sequence<markerCorner> markerCorners;
+    Img::CameraImage data;
+
+    sequence<rotationMat> rotations;
+    sequence<RTC::Vector3D> translates;
+    
+  };
+
+  struct arUcoData
+  {
+    RTC::Time tm;
+    
+    sequence<long> ids;
+    
+    sequence<markerCorner> markerCorners;
+
+    sequence<rotationMat> rotations;
+    sequence<RTC::Vector3D> translates;
+
+  };
+
+  
+}; /* module */
+
+#endif /* ArUco_IDL */

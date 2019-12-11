@@ -1,0 +1,54 @@
+# ROIPointCloud CMake config file
+#
+# This file sets the following variables:
+# ROIPointCloud_FOUND - Always TRUE.
+# ROIPointCloud_INCLUDE_DIRS - Directories containing the ROIPointCloud include files.
+# ROIPointCloud_IDL_DIRS - Directories containing the ROIPointCloud IDL files.
+# ROIPointCloud_LIBRARIES - Libraries needed to use ROIPointCloud.
+# ROIPointCloud_DEFINITIONS - Compiler flags for ROIPointCloud.
+# ROIPointCloud_VERSION - The version of ROIPointCloud found.
+# ROIPointCloud_VERSION_MAJOR - The major version of ROIPointCloud found.
+# ROIPointCloud_VERSION_MINOR - The minor version of ROIPointCloud found.
+# ROIPointCloud_VERSION_REVISION - The revision version of ROIPointCloud found.
+# ROIPointCloud_VERSION_CANDIDATE - The candidate version of ROIPointCloud found.
+
+message(STATUS "Found ROIPointCloud-@PROJECT_VERSION@")
+set(ROIPointCloud_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ROIPointCloud_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ROIPointCloud_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ROIPointCloud_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ROIPointCloud_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ROIPointCloud_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ROIPointCloud_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ROIPointCloud_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ROIPointCloud_VERSION @PROJECT_VERSION@)
+set(ROIPointCloud_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ROIPointCloud_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ROIPointCloud_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ROIPointCloud_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
